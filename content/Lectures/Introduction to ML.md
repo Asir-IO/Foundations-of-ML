@@ -69,12 +69,12 @@ R(h)=E[\hat{R}_S(h)], \text{ with respect to every S in }\mathcal{S}
 $$
 $\textit{Proof:}$
 $$
-\begin{align}
+\begin{align*}
 E[\hat{R}_S(h)]&=E[\frac{1}{m}\sum_{i=1}^{m}\mathcal{L}(h(x_i), y_i)]\\
 &=\frac{1}{m}\sum_{i=1}^{m}E[\mathcal{L}(h(x_i), y_i)] &\textit{from } (1) \\
 &=\frac{1}{m}\sum_{i=1}^{m}R(h) \\
 &=\frac{1}{m}\cdot m\cdot R(h)=R(h)
-\end{align}
+\end{align*}
 $$
 ---
 # General Notes
