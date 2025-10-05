@@ -1,7 +1,7 @@
 ---
 title: Theoretical Foundations of Machine Learning
 ---
-Notes here represent my interpretation of a lecture as I attended/watched it. 
+Notes here represent my own interpretation of a lecture as I attended/watched it. 
 
 Most of their content was typed purely as presented by the doctor, while other parts reflect my own insights and thoughts as I processed the material.
 # The Lectures

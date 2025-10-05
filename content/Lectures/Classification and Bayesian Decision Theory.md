@@ -2,9 +2,9 @@
 ---
 It's the task of predicting a **class** for a given input x. 
 
-A machine learning algorithm creates a **classifier**`h(x)` that approximates the true class, c(x) or y, for any input x. 
+A machine learning algorithm creates a **classifier** $h(x)$ that approximates the true class, $c(x$) or $y$, for any input $x$. 
 
-$\text{\Large An error}$ occurs when our prediction is wrong
+$\text{\large An error}$ occurs when our prediction is wrong
 $$
 \begin{gather*}
 h(x)\;\neq\;c(x) \\
@@ -21,14 +21,10 @@ $$
 ### An example of a classification loss function
 
 $$
-\begin{flalign*}
-&&
-\begin{gathered}
-  \mathcal{L}(h(x), y) \quad=\quad 1_{h(x) \neq y} \\
-  \text{(Zero-One loss or Uniform Error loss)}
-\end{gathered}
-&&
-\end{flalign*}
+\begin{gather*}
+\mathcal{L}(h(x), y) \quad=\quad 1_{h(x) \neq y} \\
+\text{(Zero-One loss or Uniform Error loss)}
+\end{gather*}
 $$
 In that example, every error had a cost of 1, and a correct prediction had a cost of 0.
 
@@ -49,28 +45,18 @@ $$
 $$
 ### Here are a few examples of regression loss functions
 $$
-\begin{flalign*}
-(1). &&
 \begin{gathered}
   \mathcal{L}(\hat{y}, y) \quad=\quad |\hat{y}-y|\\
   \text{(absolute value of error loss)}
-\end{gathered}
-&&
-\end{flalign*}
+\end{gathered} \tag{1}
 $$
 $$
-\begin{flalign*}
-(2). &&
 \begin{gathered}
   \mathcal{L}(\hat{y}, y) \quad=\quad ||\hat{y}-y||^2\\
   \text{(square of error loss)}
-\end{gathered}
-&&
-\end{flalign*}
+\end{gathered} \tag{2}
 $$
 $$
-\begin{flalign*}
-(3). &&
 \begin{gathered}
 	  \mathcal{L}(\hat{y}, y) =
 	\begin{cases}
@@ -78,13 +64,9 @@ $$
 	1 & \text{otherwise}
 	\end{cases}\\
   \text{(uniform error loss)}
-\end{gathered}
-&&
-\end{flalign*}
+\end{gathered} \tag{3}
 $$
 $$
-\begin{flalign*}
-(4). &&
 \begin{gathered}
 	  \mathcal{L}(\hat{y}, y) =
 	\begin{cases}
@@ -92,9 +74,7 @@ $$
 	0 & \text{otherwise}
 	\end{cases}\\
   \text{(hinge loss)}
-\end{gathered}
-&&
-\end{flalign*}
+\end{gathered} \tag{4}
 $$
 ---
 # 2. Error Risk
@@ -138,14 +118,16 @@ h_B&=\text{arg min}_{h \in \mathcal{H}}\int_{x} \sum_{y}\mathcal{L}(h(x), y)\cdo
 $$
 $\mathcal{L}(h(x),y)$ here is the loss for predicting $h(x)$ when the true class is $y$, and $\mathcal{Y}$ is the set of all possible classes.
 
+---
+### Notation Alert
+
 $$
-\begin{array}{ll}
-p(x, y) = & \begin{array}[t]{c}
-            p(x \text{ and } y) \\
-            \textit{(the probability of x and y occuring together)}
-            \end{array}
-\end{array}
+\begin{align*}
+p(x, y) &=\text{the probability of x and y occurring together} \\
+&=p(x \text{ and } y) 
+\end{align*}
 $$
+---
 #### Since
 $$
 \begin{align*}
@@ -178,8 +160,8 @@ Of course $h_B(x) \in \mathcal{Y}$   $\textit{(the set of all possible classes)}
 $$
 \begin{align*}
 h_B(x)&=\text{arg min}_{h(x) \in \mathcal{Y}}\;\text{(the risk for x)} \tag{3} \\
-&=\text{arg min}_{h(x) \in \mathcal{Y}}\; p(x)\cdot\sum_{y}\bigg(\mathcal{L}(h(x), y)\cdot p(x, y) \bigg) \tag{3} \\
-&=\text{arg min}_{h(x) \in \mathcal{Y}}\; \sum_{y}\bigg(\mathcal{L}(h(x), y)\cdot p(x, y) \bigg) \tag{} \\
+&=\text{arg min}_{h(x) \in \mathcal{Y}}\; p(x)\cdot\sum_{y}\bigg(\mathcal{L}(h(x), y)\cdot p(x, y) \bigg)  \\
+&=\text{arg min}_{h(x) \in \mathcal{Y}}\; \sum_{y}\bigg(\mathcal{L}(h(x), y)\cdot p(x, y) \bigg) \\
 \end{align*}
 $$
 *(Note: since the term $p(x)$ is a positive constant and doesn't change which $h(x)$ wins, we were able to remove it from the formula)*
