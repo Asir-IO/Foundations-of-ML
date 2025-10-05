@@ -119,7 +119,7 @@ h_B=\text{arg min}_{h \in \mathcal{H}}R(h) \tag{1}
 $$
 [[#An Example on the usage of arg min|(Here's an example showing how arg min works)]]
 
-If you [[#That is,|forgot]] what $R(h)$ is.fff
+If you [[#That is,|forgot]] what $R(h)$ is.
 $$
 \begin{align*}
 h_B&=\text{arg min}_{h \in \mathcal{H}}\int_{x} \sum_{y}\mathcal{L}(h(x), y)\cdot p(x, y) \,dx \tag{2}
