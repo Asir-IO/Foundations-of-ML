@@ -33,16 +33,17 @@ But if not all errors are equally bad, we need a more flexible way to define the
 This matrix defines the penalty for every possible combination of (a predicted class, and a true class). We denote this cost as $\lambda_{\hat{y}y}$ which represents the loss for predicting the class $\hat{y}$​ when the true class was actually $y$.
 
 For example, the cost matrix for a simple **uniform loss** (or 0/1 loss) with classes $\{A, \;B, \;C\}$ would be
-$$
-{\Large\lambda_{\hat{y}y}} \quad= \quad
-\begin{array}{c|ccc}
-    \text{Predicted}(\hat{y})\text{\\True}(y)& \mathbf{A} & \mathbf{B} & \mathbf{C} \\
-    \hline
-    \mathbf{A} & 0 & 1 & 1 \\
-    \mathbf{B} & 1 & 0 & 1 \\
-    \mathbf{C} & 1 & 1 & 0
-\end{array}
-$$
+> [!example]
+> $$
+> {\Large\lambda_{\hat{y}y}} \quad= \quad
+> \begin{array}{c|ccc}
+>     \text{Predicted}(\hat{y})\backslash\text{True}(y)& \mathbf{A} & \mathbf{B} & \mathbf{C} \\
+>     \hline
+>     \mathbf{A} & 0 & 1 & 1 \\
+>     \mathbf{B} & 1 & 0 & 1 \\
+>     \mathbf{C} & 1 & 1 & 0
+> \end{array}
+> $$
 ### Here are a few examples of regression loss functions
 $$
 \begin{gathered}
@@ -86,14 +87,23 @@ R(h)=E\big[\mathcal{L}(h(x), y)\big]
 $$
 To transform the operator $E[\text{expression}]$ into something we can work with (like sums and integrals), we do the following:
 1. Identify the random variables in the $\text{expression}$ inside it, they're $x$ and $y$ in $\mathcal{L}(h(x), \;y)$
-2. Find their Joint distribution, it's $p(x, \;y)$ for $x$ and $y$
-To finally evaluate $E[\text{expression}]$, we sum that $\text{expression}$ over all possible pairs of the random variables, with each term getting weighted by the probability of that pair occurring (from the joint dist.).
+2. Find their Joint distribution, it's $p(x, \;y)$ for $x$ and $y$, which's the same thing as $p(x \text{ and }y)$.
 
-$\text{\large That is, }$
+> [!warning] Notation Alert
+> $$
+> \begin{align*}
+> p(x, y) &=\text{the probability of x and y occurring together} \\
+> &=p(x \text{ and } y)
+> \end{align*}
+> $$
+
+To finally evaluate $E[\text{expression}]$, we sum that $\text{expression}$ over all possible pairs of the random variables, with each term getting weighted by the probability of that pair occurring (from the joint dist.). 
+## That is,
 $$
 \begin{align*}
 E\big[\mathcal{L}(h(x), y)\big] &= \text{Sum over every }(x, y) \text{ pair of }\mathcal{L}(h(x), y)\cdot p(x, \;y) \\
-&= \int_{x} \sum_{y}\mathcal{L}(h(x), y)\cdot p(x, y) \,dx
+&= \int_{x} \sum_{y}\mathcal{L}(h(x), y)\cdot p(x, y) \,dx \\
+&=R(h)
 \end{align*}
 $$
 *(The doctor briefly mentioned Cross Validation here)*
@@ -103,31 +113,19 @@ $$
 ---
 The goal of Bayesian Decision Theory is to find the best possible **classifier** for a given problem. This ideal classifier is called the **Bayes classifier**.
 #### How does it (theoretically) do it?
-Given a **Hypothesis Space** H, which is the set of all possible classifiers $\mathcal{H}=\{h_1, h_2, \;...\}$, and a loss function $\mathcal{L}$, the Bayes classifier $h_B$ is the specific classifier $h\in\mathcal{H}$ that has the minimum possible **risk**.
+Given a **Hypothesis Space** H, which is the set of all possible classifiers $\mathcal{H}=\{h_1, h_2, \;...\}$, and a risk function $R$, the Bayes classifier $h_B$ is the specific classifier $h\in\mathcal{H}$ that has the minimum possible **risk**.
 $$
 h_B=\text{arg min}_{h \in \mathcal{H}}R(h) \tag{1}
 $$
 [[#An Example on the usage of arg min|(Here's an example showing how arg min works)]]
 
-The risk $R(h)$ is the average loss of a classifier $h$ over the entire data distribution. It's calculated by summing the loss for every possible i/o pair $(x,\;y)$, weighted by the probability of that pair occurring.
-
+If you [[#That is,|forgot]] what $R(h)$ is.fff
 $$
 \begin{align*}
 h_B&=\text{arg min}_{h \in \mathcal{H}}\int_{x} \sum_{y}\mathcal{L}(h(x), y)\cdot p(x, y) \,dx \tag{2}
 \end{align*}
 $$
 $\mathcal{L}(h(x),y)$ here is the loss for predicting $h(x)$ when the true class is $y$, and $\mathcal{Y}$ is the set of all possible classes.
-
----
-### Notation Alert
-
-$$
-\begin{align*}
-p(x, y) &=\text{the probability of x and y occurring together} \\
-&=p(x \text{ and } y) 
-\end{align*}
-$$
----
 #### Since
 $$
 \begin{align*}
@@ -135,7 +133,8 @@ p(x,\;y)&=p(y|x)\cdot p(x) \quad \quad\text{(the product chain law)}\\
 &=p(x|y)\cdot p(y)
 \end{align*}
 $$
-$\text{\large Where:}$
+$\text{Where:}$
+
 $p(y|x)$ is the probability that $y$ is the class, given that $x$ was the input.
 #### Then
 $$
@@ -164,28 +163,30 @@ h_B(x)&=\text{arg min}_{h(x) \in \mathcal{Y}}\;\text{(the risk for x)} \tag{3} \
 &=\text{arg min}_{h(x) \in \mathcal{Y}}\; \sum_{y}\bigg(\mathcal{L}(h(x), y)\cdot p(x, y) \bigg) \\
 \end{align*}
 $$
-*(Note: since the term $p(x)$ is a positive constant and doesn't change which $h(x)$ wins, we were able to remove it from the formula)*
+> [!note] Note
+> Since the term $p(x)$ is a positive constant and doesn't change which $h(x)$ wins, we were able to remove it from the formula.
 # General notes 
-#### An Example on the usage of arg min
-$$
-\text{Given an array }A:
-\quad \quad \quad
-\begin{matrix}
-i \\
-0 \\
-1 \\
-2 \\
-3
-\end{matrix}
-\;
-\begin{matrix}
-A \\
-\begin{bmatrix}
-6 \\
-8 \\
-5 \\
-4
-\end{bmatrix}
-\end{matrix}
-$$
-$\text{arg min}_{i \in \{0, 1, 2, 3\}}A[i]$ = The index $(i)$ with the minimum value of $A[i]$ = 3
+---
+> [!example] An Example on the usage of arg min
+> $$
+> \text{Given an array }A:
+> \quad \quad \quad
+> \begin{matrix}
+> i \\
+> 0 \\
+> 1 \\
+> 2 \\
+> 3
+> \end{matrix}
+> \;
+> \begin{matrix}
+> A \\
+> \begin{bmatrix}
+> 6 \\
+> 8 \\
+> 5 \\
+> 4
+> \end{bmatrix}
+> \end{matrix}
+> $$
+> $\text{arg min}_{i \in \{0, 1, 2, 3\}}A[i]$ = The index $(i)$ with the minimum value of $A[i]$ = 3
