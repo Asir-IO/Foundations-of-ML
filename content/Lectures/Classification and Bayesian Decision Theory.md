@@ -2,16 +2,16 @@
 ---
 It's the task of predicting a **class** for a given input x. 
 
-A machine learning algorithm creates a **classifier** $h(x)$ that approximates the true class, $c(x$) or $y$, for any input $x$. 
+A machine learning algorithm creates a **classifier** $h(x)$ that *predicts* the true class, $c(x$) or $y$, for any input $x$. 
 
-$\text{\large An error}$ occurs when our prediction is wrong
+$\text{\large An error}$ occurs when its prediction is wrong
 $$
 \begin{gather*}
 h(x)\;\neq\;c(x) \\
 \text{(error condition)}
 \end{gather*}
 $$
-We decide how to handle such erros by defining an error function
+An error function defines how such errors should be handled
 $$
 \begin{gather*}
 \mathcal{L}(h(x), c(x)) \\
@@ -22,7 +22,10 @@ $$
 
 $$
 \begin{gather*}
-\mathcal{L}(h(x), y) \quad=\quad 1_{h(x) \neq y} \\
+\mathcal{L}(h(x), y) \quad=\quad 1_{h(x) \neq y}\quad=\quad\begin{cases}
+	1 & h(x)\neq y \\
+	0 & \text{otherwise}
+	\end{cases}\\ \\
 \text{(Zero-One loss or Uniform Error loss)}
 \end{gather*}
 $$
@@ -152,9 +155,11 @@ However, since this is **equivalent** to minimizing the risk for each $x$ *separ
 
 That is, we're no longer interested in a *global* function $h$ that minimizes this sum and that can be used on any value of $x$.
 
-We will instead, for *any given instance* of $x$, find its its $h_B(x)$ $\text{(which is simply the class having the least risk for x)}$
+We will instead, for *any given instance* of $x$, find its $h_B(x)$, ***which is simply the class having the least risk for x***.8
 
-Of course $h_B(x) \in \mathcal{Y}$   $\textit{(the set of all possible classes)}$ 
+> [!NOTE]
+> Of course, what we're trying to optimize for, $h_B(x)$, now belongs to the set of all possible classes, $\mathcal{Y}$.
+
 
 $$
 \begin{align*}
